@@ -8,6 +8,7 @@ import (
 
 type simpleServer int
 
+// ServeHTTP implements the Handler interface
 func (m simpleServer) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	err := req.ParseForm()
 	if err != nil {
