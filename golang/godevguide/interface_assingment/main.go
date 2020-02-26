@@ -38,4 +38,7 @@ func main() {
 	printArea(myTriangle)
 	printArea(mySquare)
 
+	fmt.Println("using tringle's getMethod:", myTriangle.getArea())
+	fmt.Println("using square's getMethod:", mySquare.getArea())
+
 }
