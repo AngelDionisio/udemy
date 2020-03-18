@@ -20,6 +20,10 @@ func main() {
 	results := computeTmobileBill(data, peopleInPlan)
 
 	fmt.Println(results)
+
+	for k, v := range results {
+		fmt.Println(k, ":", v)
+	}
 }
 
 func addFloatList(n []float64) float64 {
@@ -31,9 +35,6 @@ func addFloatList(n []float64) float64 {
 }
 
 func computeTmobileBill(data map[string]float64, people []string) map[string]float64 {
-	fmt.Println(people)
-	fmt.Println(data)
-
 	angelExtraList := []float64{data["angelExtra"], data["angelNetflixExtra"]}
 	julioExtraList := []float64{data["julioExtra"], data["julioNetflixExtra"]}
 	joseExtraList := []float64{data["joseExtra"]}
@@ -50,12 +51,6 @@ func computeTmobileBill(data map[string]float64, people []string) map[string]flo
 	julioTotal := addFloatList([]float64{totalPerPerson * 2, julioExtra})
 	joseTotal := addFloatList([]float64{totalPerPerson * 2, joseExtra})
 	totalBillAmount := addFloatList([]float64{angelTotal, julioTotal, joseTotal})
-
-	fmt.Println("totalPerPerson:", totalPerPerson)
-	fmt.Println("angelTotal:", angelTotal)
-	fmt.Println("julioTotal:", julioTotal)
-	fmt.Println("joseTotal:", joseTotal)
-	fmt.Println("totalBillAmount:", totalBillAmount)
 
 	m := map[string]float64{
 		"totalPerPerson":  totalPerPerson,
