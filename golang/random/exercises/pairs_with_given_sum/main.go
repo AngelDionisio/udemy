@@ -101,12 +101,12 @@ func findPair(list []int, target int) {
 }
 
 func unique(list []int) []int {
-	record := make(map[int]bool)
+	seenMap := make(map[int]bool)
 	uniqueItems := []int{}
 
 	for _, v := range list {
-		if _, found := record[v]; !found {
-			record[v] = true
+		if _, found := seenMap[v]; !found {
+			seenMap[v] = true
 			uniqueItems = append(uniqueItems, v)
 		}
 	}
