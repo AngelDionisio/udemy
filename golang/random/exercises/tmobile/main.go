@@ -8,13 +8,11 @@ func main() {
 	peopleInPlan := []string{"Angel", "Luz", "Julio", "Artemis", "Jose", "Mami"}
 
 	data := map[string]float64{
-		"total":             208.00,
-		"extra":             0.0,
-		"angelNetflixExtra": 1.0,
-		"julioNetflixExtra": 1.0,
-		"angelExtra":        0.0,
-		"julioExtra":        0.0,
-		"joseExtra":         0.0,
+		"total":      202.00,
+		"extra":      0.0,
+		"angelExtra": 1.0, // netflix extra charge
+		"julioExtra": 1.0, // netflix extra charge
+		"joseExtra":  0.0,
 	}
 
 	results := computeTmobileBill(data, peopleInPlan)
@@ -35,17 +33,19 @@ func addFloatList(n []float64) float64 {
 }
 
 func computeTmobileBill(data map[string]float64, people []string) map[string]float64 {
-	angelExtraList := []float64{data["angelExtra"], data["angelNetflixExtra"]}
-	julioExtraList := []float64{data["julioExtra"], data["julioNetflixExtra"]}
-	joseExtraList := []float64{data["joseExtra"]}
-
-	angelExtra := addFloatList(angelExtraList)
-	julioExtra := addFloatList(julioExtraList)
-	joseExtra := addFloatList(joseExtraList)
+	angelExtra := data["angelExtra"]
+	julioExtra := data["julioExtra"]
+	joseExtra := data["joseExtra"]
+	totalExtras := addFloatList([]float64{
+		angelExtra,
+		julioExtra,
+		joseExtra,
+		data["extra"],
+	})
 
 	var totalPerPerson float64
 	l := float64(len(people))
-	totalPerPerson = (data["total"] - addFloatList([]float64{angelExtra, julioExtra, joseExtra, data["extra"]})) / l
+	totalPerPerson = (data["total"] - totalExtras) / l
 
 	angelTotal := addFloatList([]float64{totalPerPerson * 2, angelExtra})
 	julioTotal := addFloatList([]float64{totalPerPerson * 2, julioExtra})

@@ -34,6 +34,7 @@ func main() {
 	http.HandleFunc("/dog/", dogHandler)
 	http.HandleFunc("/cat", catHandler)
 	http.HandleFunc("/search", handleURLSearchQuery)
+	http.HandleFunc("/favicon.io", http.NotFound)
 	http.HandleFunc("/form", formHandler)
 
 	http.ListenAndServe(":8080", nil)
