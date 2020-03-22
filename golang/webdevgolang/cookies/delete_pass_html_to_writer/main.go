@@ -30,6 +30,7 @@ func read(w http.ResponseWriter, req *http.Request) {
 	cookie, err := req.Cookie("session")
 	if err != nil {
 		http.Redirect(w, req, "/set", http.StatusSeeOther)
+		// function will continue running sequentially, still need to return after redirect to exit function
 		return
 	}
 	fmt.Fprintf(w, `<h1>Your Cookie:<br>%v</h1><h1><a href="/expire">expire</a></h1>`, cookie)
