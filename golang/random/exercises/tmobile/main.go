@@ -44,8 +44,7 @@ func computeTmobileBill(data map[string]float64, people []string) map[string]flo
 	})
 
 	var totalPerPerson float64
-	l := float64(len(people))
-	totalPerPerson = (data["total"] - totalExtras) / l
+	totalPerPerson = (data["total"] - totalExtras) / float64(len(people))
 
 	angelTotal := addFloatList([]float64{totalPerPerson * 2, angelExtra})
 	julioTotal := addFloatList([]float64{totalPerPerson * 2, julioExtra})
