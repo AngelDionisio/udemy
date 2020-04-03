@@ -11,7 +11,7 @@ type test struct {
 }
 
 func main() {
-	input := []int{1, 2, 9, 12, 10}
+	input := []int{10, 2, 9, 12, 1}
 	target := 10
 	findPair(input, target)
 
@@ -55,14 +55,19 @@ func printPairsWhoseSumIsN(list []int, target int) {
 }
 
 // more efficient way to find sum of pairs
-// start by sorting list, compare first, and last items
-// if sum is > than target, move last index to the lef
-// if sum is < target, move first index to the right
+/*
+* check if list is sorted, if not, sort
+* create two indexes, lo, hi, pointing to the start and tail of the list
+* check if the value at arr[hi] > target, if so decrease the value of tail (hi--)
+* check arr[lo] + arr[hi] == sum, if true, add arr[lo] and arr[hi] to results array
+* else if sum < target, lo++
+* else if sum > target, hi--
+* remove any duplicates from results array
+ */
 func findPair(list []int, target int) {
 	// check if array is sorted, if not, sort ascending
-	sortedInts := list
 	if !sort.IntsAreSorted(list) {
-		sort.Ints(sortedInts)
+		sort.Ints(list)
 	}
 
 	// keep two indices pointing to the end-points of the array
@@ -71,16 +76,16 @@ func findPair(list []int, target int) {
 	var l []int
 
 	for lo < hi {
-		if sortedInts[hi] > target {
+		if list[hi] > target {
 			hi--
 			continue
 		}
 
-		tempSum := sortedInts[lo] + sortedInts[hi]
+		tempSum := list[lo] + list[hi]
 		if tempSum == target {
 			// fmt.Println("target sum found:", sortedInts[lo], " + ", sortedInts[hi], "= ", target)
-			l = append(l, sortedInts[lo])
-			l = append(l, sortedInts[hi])
+			l = append(l, list[lo])
+			l = append(l, list[hi])
 			lo++
 			hi--
 			continue
@@ -91,7 +96,7 @@ func findPair(list []int, target int) {
 		}
 	}
 
-	result := unique(l)
+	result := removeDuplicates(l)
 
 	if len(result) == 0 {
 		fmt.Println("No pairs found")
@@ -100,7 +105,7 @@ func findPair(list []int, target int) {
 	fmt.Println(result)
 }
 
-func unique(list []int) []int {
+func removeDuplicates(list []int) []int {
 	seenMap := make(map[int]bool)
 	uniqueItems := []int{}
 

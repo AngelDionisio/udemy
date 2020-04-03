@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -30,7 +32,14 @@ func formHandler(w http.ResponseWriter, req *http.Request) {
 	<br>`+v)
 }
 
+func rootHandler(w http.ResponseWriter, req *http.Request) {
+	ctx := req.Context()
+	log.Println(ctx)
+	fmt.Printf("%+v\n", ctx)
+}
+
 func main() {
+	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/dog/", dogHandler)
 	http.HandleFunc("/cat", catHandler)
 	http.HandleFunc("/search", handleURLSearchQuery)
