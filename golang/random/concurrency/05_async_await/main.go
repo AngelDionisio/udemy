@@ -6,19 +6,21 @@ import (
 	"time"
 )
 
-func longRunningTask(waitInSeconds int) <-chan int32 {
-	r := make(chan int32)
+func longRunningTask(waitInSeconds int) <-chan int {
+	r := make(chan int)
 
 	go func() {
 		defer close(r)
 
 		// Simulate workload
-		fmt.Println("starting work...")
-		seed := rand.NewSource(time.Now().UnixNano())
-		r1 := rand.New(seed)
+		fmt.Printf("starting work that will take %d seconds...\n", waitInSeconds)
+
+		// set seed to assure random numbers
+		rand.Seed(time.Now().UnixNano())
+		min, max := 1, 100
 
 		time.Sleep(time.Second * time.Duration(waitInSeconds))
-		r <- r1.Int31n(100)
+		r <- rand.Intn((max - min + 1) + min)
 	}()
 
 	return r
