@@ -6,6 +6,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// Install: https://www.postgresql.org/download/
 // package database/sql is a generic interface around SQL or SQL-like databases
 // it must be used in conjunction with a driver (which gets initialized when the program runs)
 // we use the _ to load it, and not get the "unused" error. Though it is being used by the sql interface
