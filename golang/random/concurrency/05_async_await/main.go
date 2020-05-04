@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// longRunningTask an async function that takes 'waitInSeconds' time to execute
 func longRunningTask(waitInSeconds int) <-chan int {
 	r := make(chan int)
 
