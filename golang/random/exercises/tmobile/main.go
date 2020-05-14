@@ -60,6 +60,7 @@ func main() {
 	results := computeTmobileBill(data, peopleInPlan)
 
 	fmt.Println(results)
+	fmt.Printf("%#v\n", results)
 
 	for k, v := range results {
 		fmt.Println(k, ":", v)
