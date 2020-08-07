@@ -11,10 +11,10 @@ const separator = "_"
 func main() {
 	s := "xxxxyyywww2222"
 	encoded := encodeString(s)
-	fmt.Printf("%#v\n", encoded)
+	fmt.Printf("encoded string: %#v\n", encoded)
 
 	decoded := decodeString(encoded)
-	fmt.Printf("%v\n", decoded)
+	fmt.Printf("decoded string: %v\n", decoded)
 }
 
 // xxxxyyyzzzzz -> 4x3y5z
@@ -40,7 +40,7 @@ func encodeString(s string) string {
 
 func decodeString(s string) string {
 	listOfKeys := strings.Split(s, separator)
-	fmt.Println(listOfKeys)
+	fmt.Println("list of keys:", listOfKeys)
 
 	ret := ""
 	for _, v := range listOfKeys {
