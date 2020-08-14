@@ -9,7 +9,7 @@ import (
 const separator = "_"
 
 func main() {
-	s := "xxxxyyywww2222"
+	s := "xxxxyyywww2222222222"
 	encoded := encodeString(s)
 	fmt.Printf("encoded string: %#v\n", encoded)
 
@@ -25,7 +25,7 @@ func encodeString(s string) string {
 	result := ""
 
 	for k, v := range m {
-		strToAppend := fmt.Sprintf("%v%v%v", v, k, separator)
+		strToAppend := fmt.Sprintf("%v%v%v", k, v, separator)
 		result += strToAppend
 	}
 
@@ -44,9 +44,11 @@ func decodeString(s string) string {
 
 	ret := ""
 	for _, v := range listOfKeys {
-		count, _ := strconv.Atoi(string(v[0]))
-		char := string(v[1])
-		toAppend := strings.Repeat(char, count)
+		// position 0 will always correspond to the character we need to print
+		// the rest, is the number of times the character appeared
+		charToPrint := string(v[0])
+		count, _ := strconv.Atoi(string(v[1:]))
+		toAppend := strings.Repeat(charToPrint, count)
 		ret += toAppend
 	}
 	return ret
