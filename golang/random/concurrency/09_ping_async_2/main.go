@@ -43,9 +43,11 @@ func pingURLs(listOfUrls []string) {
 		close(c)
 	}()
 
+	// set the number of go routines we need to wait for
+	wg.Add(len(listOfUrls))
+
 	// create a Goroutine for each request, send results through channel
 	for _, url := range listOfUrls {
-		wg.Add(1)
 		go func(lnk string) {
 			defer wg.Done()
 			c <- pingURL(lnk)
