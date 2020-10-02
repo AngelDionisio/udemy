@@ -26,23 +26,23 @@ func main() {
 
 func checkURLs(list []string) {
 	var wg sync.WaitGroup
-	c := make(chan string)
+	results := make(chan string)
 
 	// launch Goroutine that will block, waiting for WaitGroup queue to be depleted
 	// then close channel used to receive messages
 	go func() {
 		wg.Wait()
-		close(c)
+		close(results)
 	}()
 
 	for _, url := range list {
 		// tell WaitGroup to add one item to wait for
 		// could be replaced with wg.Add(len(list))
 		wg.Add(1)
-		go isUp(url, c, &wg)
+		go isUp(url, results, &wg)
 	}
 
-	for msg := range c {
+	for msg := range results {
 		fmt.Println(msg)
 	}
 }
@@ -50,13 +50,13 @@ func checkURLs(list []string) {
 // isUp is to be used as a Goroutine for checking if an URL is up
 // it accepts the URL, a channel to send messages to, and a pointer to a Waitgroup
 // to keep sync of how many of these the caller should wait for
-func isUp(url string, c chan string, wg *sync.WaitGroup) {
+func isUp(url string, results chan string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	_, err := http.Get(url)
 	if err != nil {
-		c <- fmt.Sprintf("%v is down!\n", url)
+		results <- fmt.Sprintf("%v is down!\n", url)
 		return
 	}
-	c <- fmt.Sprintf("%v is up!", url)
+	results <- fmt.Sprintf("%v is up!", url)
 }
