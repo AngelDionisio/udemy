@@ -24,6 +24,10 @@ func main() {
 		os.Exit(1)
 	}
 
+	if resp.StatusCode != 200 {
+		fmt.Printf("HTTP response Error %d\n", resp.StatusCode)
+	}
+
 	// bs := make([]byte, 99999)
 	// resp.Body.Read(bs)
 
