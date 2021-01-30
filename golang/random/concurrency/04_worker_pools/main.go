@@ -7,8 +7,6 @@ func main() {
 	results := make(chan int, 70)
 
 	go worker(jobs, results)
-	go worker(jobs, results)
-	go worker(jobs, results)
 
 	for i := 0; i < 70; i++ {
 		jobs <- i
