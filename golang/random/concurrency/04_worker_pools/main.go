@@ -7,6 +7,10 @@ func main() {
 	results := make(chan int, 70)
 
 	go worker(jobs, results)
+	// we can add multiple workers who can pull work from the jobs pool
+	// this however does not guarantee order, so in the fib example, the results
+	// might not be displayed in order
+	go worker(jobs, results)
 
 	for i := 0; i < 70; i++ {
 		jobs <- i
