@@ -7,6 +7,8 @@ func main() {
 	results := make(chan int, 70)
 
 	go worker(jobs, results)
+	go worker(jobs, results)
+	go worker(jobs, results)
 
 	for i := 0; i < 70; i++ {
 		jobs <- i
@@ -30,9 +32,10 @@ func fibonacci(n int) int {
 	// Iterate until desired position in sequence.
 	for i := 0; i < n; i++ {
 		// Use temporary variable to swap values.
-		temp := a
-		a = b
-		b = temp + a
+		// temp := a
+		// a = b
+		// b = temp + a
+		a, b = b, b+a
 		// fmt.Printf("temp: %v, a: %v, b: %v\n", temp, a, b)
 	}
 	return a
