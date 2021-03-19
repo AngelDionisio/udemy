@@ -13,6 +13,8 @@ func main() {
 	fmt.Printf("original: %v\n", s)
 	fmt.Printf("encoded: %v\n", encoded)
 	fmt.Printf("decoded: %v\n", decoded)
+	same := s == decoded
+	fmt.Println(same)
 }
 
 func encode(s string) string {
@@ -22,7 +24,7 @@ func encode(s string) string {
 
 	var sb strings.Builder
 	runes := []rune(s)
-	anchor, count := 0, 1
+	anchor, count := 0, 0
 	for idx, r := range s {
 		if r == runes[anchor] {
 			count++
