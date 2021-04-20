@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	s := "aaaaaaaaaabc1133"
+	s := "aaaaaaaaaa,,[]Abc1133"
 	encoded := encode(s)
 	decoded := decode(encoded)
 	fmt.Printf("original: %v\n", s)
