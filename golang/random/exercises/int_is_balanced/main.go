@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	s := "[({abc}})]"
+	s := "[({abc})]"
 	isBal := IsBalanced(s)
 
 	fmt.Println(isBal)

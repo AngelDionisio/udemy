@@ -12,7 +12,10 @@ func main() {
 	comicsToFetch := generateSliceOfRandomNumbers(10, 2380)
 
 	comics := xkcd.GetComicsAsync(comicsToFetch)
-	log.Println(comics)
+	// log.Println(comics)
+	for _, comic := range comics {
+		log.Println(comic)
+	}
 }
 
 func generateSliceOfRandomNumbers(size, maxNum int) []int {
