@@ -30,7 +30,7 @@ func (n namePrinter) Task() {
 
 func main() {
 	// create worker pool with 5 goroutines
-	p := work.New(2)
+	p := work.New(5)
 
 	var wg sync.WaitGroup
 	wg.Add(100 * len(names))
