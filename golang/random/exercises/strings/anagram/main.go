@@ -5,8 +5,8 @@ import (
 )
 
 func main() {
-	s1 := "anagram"
-	s2 := "nagaram"
+	s1 := "nameless"
+	s2 := "salesmen"
 	res := IsAnagram("cinema", "iceman")
 	res2 := IsAnagram(s1, s2)
 	fmt.Printf("Is anagram? %v\n", res)

@@ -74,25 +74,29 @@ func main() {
 	fmt.Println("Length of deDuped :", len(deDuped))
 }
 
-// DeDupeAttachmentList removes duplicate from list
-func DeDupeAttachmentList(
-	attachmentList []*Attachment,
-) []*Attachment {
-	type key struct{ parentResourceType, parentResourceID, childResourceType, childResourceID string }
-	var uniqueItems []*Attachment
-	seenMap := make(map[key]bool)
+type attachmentKey struct{ parentResourceType, parentResourceID, childResourceType, childResourceID string }
 
-	for _, v := range attachmentList {
-		k := key{
-			v.Parent.ResourceType.String(),
-			*v.Parent.ResourceID,
-			v.Child.ResourceType.String(),
-			*v.Child.ResourceID,
-		}
-		if _, found := seenMap[k]; !found {
-			seenMap[k] = true
-			uniqueItems = append(uniqueItems, v)
+func makeAttachmentKey(attachment *Attachment) *attachmentKey {
+	return &attachmentKey{
+		parentResourceType: attachment.Parent.ResourceType.String(),
+		parentResourceID:   *attachment.Parent.ResourceID,
+		childResourceType:  attachment.Child.ResourceType.String(),
+		childResourceID:    *attachment.Child.ResourceID,
+	}
+}
+
+// DeDupeAttachmentList removes duplicate from list
+func DeDupeAttachmentList(attachmentList []*Attachment) []*Attachment {
+	var uniqueList []*Attachment
+	seenMap := make(map[attachmentKey]bool)
+
+	for _, attachment := range attachmentList {
+		k := *makeAttachmentKey(attachment)
+		beforeLen := len(seenMap)
+		seenMap[k] = true
+		if len(seenMap) > beforeLen {
+			uniqueList = append(uniqueList, attachment)
 		}
 	}
-	return uniqueItems
+	return uniqueList
 }
