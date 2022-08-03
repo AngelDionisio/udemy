@@ -8,11 +8,11 @@ func main() {
 	fmt.Println("start")
 	list := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 	fmt.Println("List lenght:", len(list))
-	result := binarySearch(list, 8)
+	result := BinarySearch(list, 8)
 	fmt.Printf("result: %v\n", result)
 }
 
-func binarySearch(list []int, target int) int {
+func BinarySearch(list []int, target int) int {
 	left, right := 0, len(list)-1
 	for left <= right {
 		i := (left + right) / 2
